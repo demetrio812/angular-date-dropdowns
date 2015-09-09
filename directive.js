@@ -38,7 +38,7 @@
         if (!date.day || date.month === null || date.month === undefined || !date.year) return false;
 
         d = new Date(Date.UTC(date.year, date.month, date.day));
-        
+
         if (d && (d.getMonth() === date.month && d.getDate() === Number(date.day))) {
           return d;
         }
@@ -76,6 +76,15 @@
         model: '=ngModel'
       },
       controller: ['$scope', 'rsmdateutils', function ($scope, rsmDateUtils) {
+        // TODO move to attributes
+        $scope.dayLabel = 'Day';
+        $scope.monthLabel = 'Month';
+        $scope.yearLabel = 'Year';
+        $scope.yearDontKnowLabel = 'Don\'t know';
+        $scope.showYearDontKnowField = true;
+        $scope.yearDontKnowFieldYearValue = 1900;
+        // TODO end
+
         $scope.days = rsmDateUtils.days;
         $scope.months = rsmDateUtils.months;
 
@@ -104,13 +113,19 @@
       template:
       '<div class="form-inline">' +
       '  <div class="form-group col-xs-3">' +
-      '     <select name="dateFields.day" data-ng-model="dateFields.day" placeholder="Day" class="form-control" ng-options="day for day in days" ng-change="checkDate()" ng-disabled="disableFields"></select>' +
+      '     <select name="dateFields.day" data-ng-model="dateFields.day" placeholder="Day" class="form-control" ng-options="day for day in days" ng-change="checkDate()" ng-disabled="disableFields">' +
+      '<option value="">{{dayLabel}}</option>' +
+      '</select>' +
       '  </div>' +
       '  <div class="form-group col-xs-5">' +
-      '    <select name="dateFields.month" data-ng-model="dateFields.month" placeholder="Month" class="form-control" ng-options="month.value as month.name for month in months" value="{{ dateField.month }}" ng-change="checkDate()" ng-disabled="disableFields"></select>' +
+      '    <select name="dateFields.month" data-ng-model="dateFields.month" placeholder="Month" class="form-control" ng-options="month.value as month.name for month in months" value="{{ dateField.month }}" ng-change="checkDate()" ng-disabled="disableFields">' +
+      '<option value="">{{monthLabel}}</option>' +
+      '</select>' +
       '  </div>' +
       '  <div class="form-group col-xs-4">' +
-      '    <select ng-show="!yearText" name="dateFields.year" data-ng-model="dateFields.year" placeholder="Year" class="form-control" ng-options="year for year in years" ng-change="checkDate()" ng-disabled="disableFields"></select>' +
+      '    <select ng-show="!yearText" name="dateFields.year" data-ng-model="dateFields.year" placeholder="Year" class="form-control" ng-options="year.id as year.label for year in years" ng-change="checkDate()" ng-disabled="disableFields">' +
+      '<option value="">{{yearLabel}}</option>' +
+      '</select>' +
       '    <input ng-show="yearText" type="text" name="dateFields.year" data-ng-model="dateFields.year" placeholder="Year" class="form-control" ng-disabled="disableFields">' +
       '  </div>' +
       '</div>',
@@ -150,8 +165,11 @@
           });
         }
 
+        if (scope.showYearDontKnowField) {
+          scope.years.push({'id': scope.yearDontKnowFieldYearValue, 'label': scope.yearDontKnowLabel});
+        }
         for (var i = currentYear; i >= oldestYear; i--) {
-          scope.years.push(i);
+          scope.years.push({'id': i, 'label': i});
         }
 
         (function () {
