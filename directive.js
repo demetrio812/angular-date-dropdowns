@@ -73,7 +73,8 @@
       replace: true,
       require: 'ngModel',
       scope: {
-        model: '=ngModel'
+        model: '=ngModel',
+        showYearDontKnowField: '='
       },
       controller: ['$scope', 'rsmdateutils', function ($scope, rsmDateUtils) {
         // TODO move to attributes
@@ -81,7 +82,7 @@
         $scope.monthLabel = 'Month';
         $scope.yearLabel = 'Year';
         $scope.yearDontKnowLabel = 'Don\'t know';
-        $scope.showYearDontKnowField = true;
+        //$scope.showYearDontKnowField = true;
         $scope.yearDontKnowFieldYearValue = 1900;
         // TODO end
 
