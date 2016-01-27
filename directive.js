@@ -113,12 +113,12 @@
       }],
       template:
       '<div class="form-inline">' +
-      '  <div class="form-group col-xs-3">' +
+      '  <div class="form-group col-xs-4">' +
       '     <select name="dateFields.day" data-ng-model="dateFields.day" placeholder="Day" class="form-control" ng-options="day for day in days" ng-change="checkDate()" ng-disabled="disableFields">' +
       '<option value="">{{dayLabel}}</option>' +
       '</select>' +
       '  </div>' +
-      '  <div class="form-group col-xs-5">' +
+      '  <div class="form-group col-xs-4">' +
       '    <select name="dateFields.month" data-ng-model="dateFields.month" placeholder="Month" class="form-control" ng-options="month.value as month.name for month in months" value="{{ dateField.month }}" ng-change="checkDate()" ng-disabled="disableFields">' +
       '<option value="">{{monthLabel}}</option>' +
       '</select>' +
