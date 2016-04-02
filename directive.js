@@ -6,19 +6,36 @@
   dd.factory('rsmdateutils', function () {
     var that = this,
         dayRange = [1, 31],
+    /*
+     months = [
+     'January',
+     'February',
+     'March',
+     'April',
+     'May',
+     'June',
+     'July',
+     'August',
+     'September',
+     'October',
+     'November',
+     'December'
+     ];
+     */
+
         months = [
-          'January',
-          'February',
-          'March',
-          'April',
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
           'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December'
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec'
         ];
 
     function changeDate (date) {
@@ -65,7 +82,7 @@
         return lst;
       }())
     };
-  })
+  });
 
   dd.directive('rsmdatedropdowns', ['rsmdateutils', function (rsmdateutils) {
     return {
@@ -124,10 +141,10 @@
       '</select>' +
       '  </div>' +
       '  <div class="form-group col-xs-4">' +
-      '    <select ng-show="!yearText" name="dateFields.year" data-ng-model="dateFields.year" placeholder="Year" class="form-control" ng-options="year.id as year.label for year in years" ng-change="checkDate()" ng-disabled="disableFields">' +
+      '    <select ng-if="!yearText" name="dateFields.year" data-ng-model="dateFields.year" placeholder="Year" class="form-control" ng-options="year.id as year.label for year in years" ng-change="checkDate()" ng-disabled="disableFields">' +
       '<option value="">{{yearLabel}}</option>' +
       '</select>' +
-      '    <input ng-show="yearText" type="text" name="dateFields.year" data-ng-model="dateFields.year" placeholder="Year" class="form-control" ng-disabled="disableFields">' +
+      '    <input ng-if="yearText" type="text" name="dateFields.year" data-ng-model="dateFields.year" placeholder="Year" class="form-control" ng-disabled="disableFields">' +
       '  </div>' +
       '</div>',
       link: function (scope, element, attrs, ctrl) {
